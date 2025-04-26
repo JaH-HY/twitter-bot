@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20  # <- job will automatically stop after 20 minutes
+
+    concurrency:
+      group: twitter-bot
+      cancel-in-progress: true
 
     steps:
       - name: Checkout code
