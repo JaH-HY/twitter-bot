@@ -168,17 +168,22 @@ def main():
         print("No high-priority headlines to post.")
         return
 
+    tweets_sent = 0
+
     for headline in top_headlines:
         rewritten = generate_tweet_with_flavour(headline)
         post_tweet(rewritten)
+        tweets_sent += 1
         print(rewritten)
 
-        # Random wait between tweets
-        wait_time = random.randint(120, 300)  # wait between 2 and 5 minutes
+        wait_time = random.randint(120, 300)
         print(f"Waiting {wait_time} seconds before next tweet...")
         time.sleep(wait_time)
 
     save_headlines(saved + top_headlines)
+
+    print(f"\n✅ Planned to tweet {len(top_headlines)} headlines.")
+    print(f"✅ Actually posted {tweets_sent} tweets.\n")
 
 if __name__ == "__main__":
     main()
