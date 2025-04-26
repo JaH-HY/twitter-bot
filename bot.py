@@ -6,6 +6,7 @@ import feedparser
 import json
 import random
 import tweepy
+import time
 
 load_dotenv()  # This loads the .env file
 openai_api_key = os.getenv("OPENAI_API_KEY")
@@ -48,7 +49,7 @@ def generate_tweet_with_flavour(headline):
         flavor_phrases = flavor_pack[flavour]
 
         # Create a prompt to generate the tweet with the selected flavor
-        prompt = f"Rewrite this financial news headline into a tweet in the style of a {flavour} finance Twitter influencer, absolutely do not include hashtags or any social media jargon:\n\n{headline}"
+        prompt = f"Rewrite this financial news headline into a tweet in the style of a {flavour} finance Twitter influencer, NEVER include hashtags or social media jargon:\n\n{headline}"
 
         # Make the API call to OpenAI
         response = client.chat.completions.create(
@@ -171,6 +172,11 @@ def main():
         rewritten = generate_tweet_with_flavour(headline)
         post_tweet(rewritten)
         print(rewritten)
+
+        # Random wait between tweets
+        wait_time = random.randint(120, 300)  # wait between 2 and 5 minutes
+        print(f"Waiting {wait_time} seconds before next tweet...")
+        time.sleep(wait_time)
 
     save_headlines(saved + top_headlines)
 
