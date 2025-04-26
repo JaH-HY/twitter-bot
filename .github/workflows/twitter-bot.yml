@@ -1,9 +1,9 @@
 name: Run Twitter Bot
 
 on:
+  workflow_dispatch:  # allows manual runs
   schedule:
-    - cron: '0 12 * * 1-5'  # Run at 12:00 UTC Monday to Friday (1pm UK during BST)
-  workflow_dispatch:  # <-- THIS lets you manually trigger it
+    - cron: '0 12 * * 1-5'  # Runs at 12:00 UTC (which is 1PM UK time during BST) on Monday–Friday
 
 jobs:
   build:
